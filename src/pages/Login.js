@@ -1,19 +1,53 @@
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
+
 function Login() {
+
+  const login = useOutletContext();
+  const [formData, setFormData]= useState({
+    username: "",
+    password: ""
+  })
+
+  function handleChange(e){
+    setFormData({
+     ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+  function handleLogin(e){
+    e.preventDefault();
+    login();
+  }
+
     return (
-      <>
-        <main>
-          <h1>Login</h1>
-          <form>
+           
+          <form onSubmit = {handleLogin}>
+            <label for = "username">Username</label>
             <div>
-              <input type="text" name="username" placeholder="Username" />
+              <input 
+                  type="text" 
+                  name="username" 
+                  placeholder="Username"
+                  id= "username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  />
             </div>
+            <label for = "password">Password</label>
             <div>
-              <input type="password" name="password" placeholder="Password" />
+              <input 
+                  type="password" 
+                  name="password" 
+                  placeholder="Password" 
+                  id="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  />
             </div>
-            <input type="submit" value="Submit" />
+            <button type="submit">Login</button>
           </form>
-        </main>
-      </>
+       
     );
   };
   
